@@ -87,7 +87,7 @@ Your AKS Cluster is ready for your deployments!
   ```
   ### Note:
   Both directories contain nearly the same codes. However, there are 2 differences:
-  * In `/Resources`, you generate the ssh key using the `ssh-keygen` command, and direct where the file is saved and what it's called. Then, pass the path to the `public key file` in `/Resources/vm.tf` at the `admin_ssh_key` parameter block, and the `private key file` as secret.
+  * In `/Resources`, you generate the ssh key using the `ssh-keygen` command, and direct where the file is saved and what it's called. Then, pass the path to the `public key file` in `/Resources/vm.tf` at the `admin_ssh_key` parameter block, and keep the `private key file` as secret.
   * In `/minikube`, the ssh key in the `ssh.tf` is generated using `Azure API`, which provider configuration is already passed in the `terraform { required_providers { azapi = {` block. Then, the `private key` is made to output as a json file, which you can then copy and save as necessary. You can then use this key to ssh into your virtual machine.
   * The second difference is the installation scripts in the different directories, which you can definitely modify to suit your need. 
 * Review the codes within each file and confirm it suits your use case
