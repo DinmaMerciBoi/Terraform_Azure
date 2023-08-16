@@ -1,6 +1,11 @@
 # To Provision a Quick AKS Cluster using the above Script
 * Install and configure Terraform - https://learn.microsoft.com/en-us/azure/developer/terraform/quickstart-configure
 * Install Kubernetes Command-Line Tool (kubectl) - https://kubernetes.io/releases/download/
+* Install Azure Command-Line Interphase - https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
+* Login to your Azure Portal
+  ```bash
+  az login
+  ```
 * Implement the Terraform code
   * Clone this repository and make it the current directory
 ```bash
@@ -69,10 +74,40 @@ terraform apply main.tfplan -auto-approve
 
 Your AKS Cluster is ready for your deployments!
 
+# To Provision a Virtual Machine along with Necessary Resources
+* Implement the Terraform code
+  * Clone this repository and make it the current directory
+  ```bash
+  git clone https://github.com/DinmaMerciBoi/Terraform_Azure.git
+  cd Terraform_Azure/Resources
+  ```
+  Or
+  ```bash
+  cd Terraform_Azure/minikube
+  ```
+  ### Note:
+  Both directories contain nearly the same codes. However, there are 2 differences:
+  * In `/Resources`, you generate the ssh key using the `ssh-keygen` command, and direct where the file is saved and what it's called. Then, pass the path to the `public key file` in `/Resources/vm.tf` at the `admin_ssh_key` parameter block, and the `private key file` as secret.
+  * In `/minikube`, the ssh key in the `ssh.tf` is generated using `Azure API`, which provider configuration is already passed in the `terraform { required_providers { azapi = {` block. Then, the `private key` is made to output as a json file, which you can then copy and save as necessary. You can then use this key to ssh into your virtual machine.
+  * The second difference is the installation scripts in the different directories, which you can definitely modify to suit your need. 
+* Review the codes within each file and confirm it suits your use case
+* Edit the codes as necessary before applying
+* Then, you can run the Terraform workflow as described above.
+* Your virtual machine is set for your use.
 
+# To Provision an Azure Storage for your Terraform Remote Backend
+* Implement the Terraform code
+  * Clone this repository and make it the current directory
+  ```bash
+  git clone https://github.com/DinmaMerciBoi/Terraform_Azure.git
+  cd Terraform_Azure/Storage
+  ```
+  * This code in `blob.tf` creates a `Resource Group`, `Storage Account`, and `Storage Container`
+  * Review the codes within each file and confirm it suits your use case
+  * Edit the codes as necessary before applying
+  * Then, you can run the Terraform workflow as described above.
+  * Your Azure Storage is set for your use as Terraform Remote Backend, which you can now configure to be used to store your Terraform state files.
 
+## Hope these have been useful to you.
 
-
-
-
-
+info@merciboi.com
